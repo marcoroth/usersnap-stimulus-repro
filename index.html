@@ -5,12 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
+
+    <script async type="module" src="/main.js"></script>
     <script>
       window.onUsersnapCXLoad = function(api) {
         api.init();
         window.Usersnap = api;
-        // fire a Usersnap event
-        window.Usersnap.logEvent('mybutton_click');
+        document.body.dispatchEvent(new CustomEvent('usersnap:loaded'))
       }
 
       let script = document.createElement('script');
@@ -18,11 +19,8 @@
       script.src = 'https://widget.usersnap.com/global/load/06057776-1fd1-4837-82cc-d7825c381f87?onload=onUsersnapCXLoad';
       document.getElementsByTagName('head')[0].appendChild(script);
     </script>
-
-    <script type="module" src="/main.js"></script>
   </head>
 
-  <body>
-    <div data-controller="usersnap"></div>
+  <body data-usersnap-controller="my" data-controller="usersnap" data-action="usersnap:loaded->usersnap#open">
   </body>
 </html>
